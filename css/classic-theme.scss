@@ -1,0 +1,60 @@
+$border-size: 2px;
+
+
+
+.minesweeper-container:before{
+    border: $mine-container-border-before solid white;
+}
+
+.minesweeper-container:after{
+    border: $mine-container-border-after solid white;
+}
+
+.minesweeper-container{
+    border: $mine-container-border solid grey;
+}
+
+.tile{
+    border-top: $border-size solid $lightgrey-1;
+    border-left: $border-size solid $lightgrey-1;
+    border-right: $border-size solid $lightgrey-3;
+    border-bottom: $border-size solid $lightgrey-3;
+    background: $lightgrey-2;
+}
+
+.tile:hover{
+    background: $lightgrey-4;
+}
+
+.tile:active, .tile.active{
+    border-top: $border-size solid $lightgrey-3;
+    border-left: $border-size solid $lightgrey-3;
+    border-right: $border-size solid $lightgrey-1;
+    border-bottom: $border-size solid $lightgrey-1;
+    background: $lightgrey-5;
+}
+
+.tile.active.mine{
+    background: red;
+}
+
+.tile.marked{
+    background: blue;
+}
+
+
+#smiley{
+    background-image: url('images/alien.png');
+}
+
+#stats{
+    border-top: $mine-container-border solid grey;
+    border-left: $mine-container-border solid grey;
+    border-right: $mine-container-border solid grey;
+    
+    
+    div{
+        background-color: black;
+        color: red;
+    }
+}
