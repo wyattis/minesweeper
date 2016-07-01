@@ -3,7 +3,7 @@
 
 var twister = new MersenneTwister();
 
-var SS = {PRESTART: 0, PLAYING: 1, LOST: 2, WON: 3};
+var SS = {PRELOAD: 0, READY: 1, PLAYING: 2, LOST: 3, WON: 4};
 
 var minesweeper = {
     
@@ -13,7 +13,8 @@ var minesweeper = {
         rows: 16
     },
     
-    status: SS.PRESTART,
+    timer: undefined,
+    status: SS.PRELOAD,
     state_history: [],
     mines: [],
     tiles: [],
@@ -32,7 +33,7 @@ var minesweeper = {
             minesweeper.createMines(function(){
                 minesweeper.calculateBoard(function(){
                     minesweeper.drawUI(function(){
-                        minesweeper.start();
+                        minesweeper.ready();
                     });
                 });
             });
@@ -45,42 +46,7 @@ var minesweeper = {
      *  Load the game resources before the game starts
      */
     load: function(cb){
-        
-        // minesweeper.images = {
-        //     'alien' : 'images/alien.png',
-        //     'dog' : 'images/dog.png',
-        // };
-        
-        // var completed = 0;
-        // var temp_images = {};
-        
-        // for(var img in minesweeper.images){
-            
-        //     var url = minesweeper.images[img];
-        //     loadRequest({url:url, type:'GET'}, img);
-        // }
-        
-        // function loadRequest(opts, img){
-            
-        //      ajaxRequest(opts, function success(response){
-        //         console.log("Success!", response);
-        //         temp_images[img] = response.data;
-        //         checkFinished();
-        //     }, function failure(response){
-        //         console.log("didn't work....", response);
-        //         checkFinished();
-        //     });
-            
-        // }
-        
-        // function checkFinished(){
-        //     completed ++;
-        //     if(completed == Object.keys(minesweeper.images).length){
-        //         minesweeper.images = temp_images;
-        //         console.log(minesweeper.images);
-        //         cb();
-        //     }
-        // }
+
         cb();
     },
     
@@ -153,9 +119,12 @@ var minesweeper = {
     
     
     drawUI: function(cb){
-        // TODO: create the stats and timer
+        // TODO: create the stats
         
         var m = minesweeper;
+        
+        // TODO: create the file menu
+        var parent = document.getElementById('menu');
         
         // creates the HUD
         var parent = document.getElementById('stats');
@@ -204,8 +173,22 @@ var minesweeper = {
     },
     
     
+    /*
+     *  Called when the game is ready to start
+     */
+    ready: function(){
+
+        minesweeper.status = SS.READY;
+        
+    },
+    
+    
+    /*
+     *  Function that is called once the player starts playing
+     */
     start: function(){
-        // TODO: start the timer
+        
+        minesweeper.timer.start();
         minesweeper.status = SS.PLAYING;
         
     },
@@ -213,11 +196,17 @@ var minesweeper = {
     
     reveal: function(t){
         
+        // Start the game if the status is READY
+        if(minesweeper.status === SS.READY){
+            minesweeper.start();
+        }
+        
+        
         var m = minesweeper;
         
         var tile = m.getTile(t);
         
-        if(!tile.clicked){
+        if(!tile.clicked && m.status != SS.LOST){
             minesweeper.tiles[tile.i].clicked = true;
             if(tile.val == -1){
                 m.explode(t);
@@ -234,13 +223,18 @@ var minesweeper = {
     },
     
     
-    
+    /*
+     *  Get a tile from the tile array based on the dom id
+     */
     getTile: function(dom){
         var index = parseInt(dom.id.replace('tile-', ''), 10);
         return minesweeper.tiles[index];  
     },
     
     
+    /*
+     *  Set a tile to be active
+     */
     makeActive: function(t, text){
         
         var tile = minesweeper.getTile(t);
@@ -265,8 +259,6 @@ var minesweeper = {
      *  Creates the spreading effect when a group of empty blocks is clicked
      */
     expand: function(initial_tile){
-        
-        // TODO: grab the edge numbers around the blank spacef
         
         var discovered = [];
         var s = minesweeper.settings;
@@ -338,7 +330,9 @@ var minesweeper = {
     
     
     
-    
+    /*
+     *  Updates the state of the game
+     */
     updateState: function(){
         var mineDiv = document.getElementById('remaining-mines');
         var smiley = document.getElementById('smiley');
@@ -351,30 +345,50 @@ var minesweeper = {
             smiley.classList.add('won');
             popup.classList.add('show');
             popup.classList.add('won');
-            popup.textContent = "Congratulations!!! You're the winningest!";
+            popup.innerHTML = "<p>Congratulations!!! You're the winningest!</p>";
         }
         else if(minesweeper.status == SS.LOST){
             console.log(popup);
             smiley.classList.add('lost');
             popup.classList.add('show');
             popup.classList.add('lost');
-            popup.textContent = 'You Lost!!!';
+            popup.innerHTML = '<p>You Lost!!!</p>';
         }
     },
 
-
+    
+    /*
+     *  Called when the game has been lost
+     */
     lose: function(){
+        minesweeper.timer.stop();
         minesweeper.status = SS.LOST;
         minesweeper.updateState();
     },
     
     
+    /*
+     *  Reveal all of the mines
+     */
+    revealMines: function(){
+        // TODO: reveal all of the mines
+        
+    },
+    
+    
+    /*
+     *  Called when the game has been won
+     */
     win: function(){
+        minesweeper.timer.stop();
         minesweeper.status = SS.WON;
         minesweeper.updateState();
     },
 
-
+    
+    /*
+     *  Called when a mine explodes
+     */
     explode: function(t){
         // TODO: end the game with an explosion!
         console.log(t);
@@ -384,7 +398,9 @@ var minesweeper = {
     },
     
     
-    
+    /*
+     *  Called when a tile is marked by the player
+     */
     mark: function(t){
         // TODO: mark the clicked tile with a flag
         var tile = minesweeper.getTile(t);
@@ -397,6 +413,9 @@ var minesweeper = {
     },
     
     
+    /*
+     *  Called to check if the player has won
+     */
     checkWin: function(){
         
         var num_checked = minesweeper.tiles.filter(function(i){return i.active;}).length;
@@ -405,9 +424,21 @@ var minesweeper = {
             minesweeper.win();
         }
         
+    },
+    
+    
+    /*
+     *  Called to update the timer display
+     */
+    updateTimer: function(timeEllapsed){
+        var timer = document.getElementById('timer');
+        timer.innerHTML = Math.round(timeEllapsed/1000);
+        console.log(timeEllapsed);
     }
     
 };
+
+minesweeper.timer = new Timer(1000, minesweeper.updateTimer);
 
 
 /*
@@ -507,54 +538,82 @@ function numberShared(a, b) {
     return mine_count;
 }
 
-// function ajaxRequest(opts, success_callback, failure_callback){
-    
-//     var xhr;
-//     if(typeof XMLHttpRequest !== 'undefined') xhr = new XMLHttpRequest();
-//     else {
-//         var versions = ["MSXML2.XmlHttp.5.0", 
-//                         "MSXML2.XmlHttp.4.0",
-//                         "MSXML2.XmlHttp.3.0", 
-//                         "MSXML2.XmlHttp.2.0",
-//                         "Microsoft.XmlHttp"]
-
-//          for(var i = 0, len = versions.length; i < len; i++) {
-//             try {
-//                 xhr = new ActiveXObject(versions[i]);
-//                 break;
-//             }
-//             catch(e){}
-//          } // end for
-//     }
-    
-//     xhr.onreadystatechange = checkState;
-    
-    
-//     function checkState(){
-        
-//         if(xhr.readyState < 4){
-//             return;
-//         }
-        
-//         if(xhr.status !== 200){
-//             failure_callback({status:xhr.status, data:xhr.responseText});
-//         }
-        
-//         if(xhr.readyState === 4){
-//             success_callback({status:xhr.status, data:xhr.responseText});
-//         }
-        
-//     }
-    
-//     xhr.open(opts.type, opts.url, true);
-//     xhr.send(opts.data);
-    
-    
-// }
-
-
+// Start the application once the window loads
 window.onload = function(){
     
     minesweeper.initialize();
+    
+};
+
+
+
+/*
+ *  Timer class
+ */
+
+function Timer(interval, interval_callback, duration, finished_callback){
+    
+    this.duration = duration;
+    this.interval = interval;
+    this.interval_callback = interval_callback;
+    this.finished_callback = finished_callback;
+    
+}
+
+
+/*
+ *  Updates the timer, decides if it's finished and calls relevant callbacks
+ */
+Timer.prototype.update = function(){
+    if(this.interval_callback){
+        
+        var timeEllapsed = this.ellapsed();
+        
+        this.finished = this.duration ? timeEllapsed >= this.duration : false;
+        
+        if(this.finished){
+            
+            this.stop();
+            
+            if(this.finished_callback){
+                this.finished_callback(timeEllapsed);
+            }
+        }
+        else{
+            this.interval_callback(timeEllapsed);
+        }
+        
+    }
+};
+
+
+/*
+ *  Starts the interval
+ */
+Timer.prototype.start = function(){
+    
+    this.startTime = new Date();
+    var that = this;
+    this.windowInterval = setInterval(function(){that.update()}, that.interval);
+    
+};
+
+
+/*
+ *  Returns the ellapsed time in milliseconds
+ */
+Timer.prototype.ellapsed = function(){
+    
+    return new Date() - this.startTime;
+    
+};
+
+
+/*
+ *  Clears the interval
+ */
+Timer.prototype.stop = function(){
+    
+    clearInterval(this.windowInterval);
     
 };

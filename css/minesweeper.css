@@ -1,7 +1,8 @@
 html, body {
   margin: 0;
   height: 100vh;
-  min-height: 800px; }
+  min-height: 800px;
+  font-family: arial; }
 
 .container {
   margin: auto;
@@ -42,10 +43,25 @@ html, body {
   float: left; }
 
 .popup {
-  height: 100px;
-  width: 300px;
-  background: red;
+  position: absolute;
+  height: 50%;
+  width: 50%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
   display: none; }
+  .popup p {
+    position: absolute;
+    height: 15%;
+    width: 100%;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center; }
 
 #popup.show {
   display: block; }
@@ -93,7 +109,12 @@ html, body {
     background-color: black;
     color: red; }
 
+.popup {
+  background: #DDDDDD;
+  border: 2px solid #949494; }
+
 .minesweeper-container {
+  position: relative;
   box-sizing: border-box;
   overflow: auto;
   max-width: 1000px;

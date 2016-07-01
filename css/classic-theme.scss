@@ -1,7 +1,5 @@
 $border-size: 2px;
 
-
-
 .minesweeper-container:before{
     border: $mine-container-border-before solid white;
 }
@@ -56,5 +54,23 @@ $border-size: 2px;
     div{
         background-color: black;
         color: red;
+    }
+}
+
+
+.popup{
+    background: $lightgrey-1;
+    border: 2px solid $lightgrey-5;
+}
+
+.popup.lost{
+    p{
+        color: red;
+    }
+}
+
+.popup.won{
+    p{
+        color: green;
     }
 }

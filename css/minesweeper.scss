@@ -2,6 +2,7 @@ html,body{
     margin: 0;
     height: 100vh;
     min-height: 800px;
+    font-family: arial;
 }
 
 $container-border: 10px;
@@ -85,10 +86,27 @@ $lightgrey-5: #949494;
 }
 
 .popup{
-    height: 100px;
-    width: 300px;
-    background: red;
+    position: absolute;
+    height: 50%;
+    width: 50%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
     display: none;
+    
+    p{
+        position: absolute;
+        height: 15%;
+        width: 100%;
+        margin: auto;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        text-align: center;
+    }
 }
 
 #popup.show{
@@ -98,6 +116,7 @@ $lightgrey-5: #949494;
 @import "classic-theme";
 
 .minesweeper-container{
+    position: relative;
     box-sizing: border-box;
     overflow: auto;
     max-width: $max-width;

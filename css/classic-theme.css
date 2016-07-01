@@ -1,21 +1,19 @@
 /*
 Error: Undefined variable: "$mine-container-border-before".
-        on line 6 of /home/ubuntu/workspace/Minesweeper/classic-theme.scss
+        on line 4 of /home/ubuntu/workspace/Minesweeper/css/classic-theme.scss
 
 1: $border-size: 2px;
 2: 
-3: 
-4: 
-5: .minesweeper-container:before{
-6:     border: $mine-container-border-before solid white;
-7: }
-8: 
-9: .minesweeper-container:after{
-10:     border: $mine-container-border-after solid white;
-11: }
+3: .minesweeper-container:before{
+4:     border: $mine-container-border-before solid white;
+5: }
+6: 
+7: .minesweeper-container:after{
+8:     border: $mine-container-border-after solid white;
+9: }
 
 Backtrace:
-/home/ubuntu/workspace/Minesweeper/classic-theme.scss:6
+/home/ubuntu/workspace/Minesweeper/css/classic-theme.scss:4
 /usr/local/rvm/gems/ruby-2.2.1/gems/sass-3.4.19/lib/sass/script/tree/variable.rb:49:in `_perform'
 /usr/local/rvm/gems/ruby-2.2.1/gems/sass-3.4.19/lib/sass/script/tree/node.rb:50:in `perform'
 /usr/local/rvm/gems/ruby-2.2.1/gems/sass-3.4.19/lib/sass/script/tree/list_literal.rb:63:in `block in _perform'
@@ -73,4 +71,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$mine-container-border-before\".\A         on line 6 of /home/ubuntu/workspace/Minesweeper/classic-theme.scss\A \A 1: $border-size: 2px;\A 2: \A 3: \A 4: \A 5: .minesweeper-container:before{\A 6:     border: $mine-container-border-before solid white;\A 7: }\A 8: \A 9: .minesweeper-container:after{\A 10:     border: $mine-container-border-after solid white;\A 11: }"; }
+  content: "Error: Undefined variable: \"$mine-container-border-before\".\A         on line 4 of /home/ubuntu/workspace/Minesweeper/css/classic-theme.scss\A \A 1: $border-size: 2px;\A 2: \A 3: .minesweeper-container:before{\A 4:     border: $mine-container-border-before solid white;\A 5: }\A 6: \A 7: .minesweeper-container:after{\A 8:     border: $mine-container-border-after solid white;\A 9: }"; }
