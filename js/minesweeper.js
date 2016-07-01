@@ -48,6 +48,7 @@ var minesweeper = {
     load: function(cb){
 
         cb();
+        
     },
     
     
@@ -119,7 +120,7 @@ var minesweeper = {
     
     
     drawUI: function(cb){
-        // TODO: create the stats
+        
         
         var m = minesweeper;
         
@@ -130,6 +131,7 @@ var minesweeper = {
         var parent = document.getElementById('stats');
         var div = document.createElement('div');
         div.id = 'remaining-mines';
+        div.innerHTML = m.remainingMines.toString();
         parent.appendChild(div);
         
         div = document.createElement('div');
@@ -138,6 +140,7 @@ var minesweeper = {
         
         div = document.createElement('div');
         div.id = 'timer';
+        div.innerHTML = '000';
         parent.appendChild(div);
         
 
@@ -196,27 +199,45 @@ var minesweeper = {
     
     reveal: function(t){
         
-        // Start the game if the status is READY
         if(minesweeper.status === SS.READY){
+            // Start the game if this is the first tile that was clicked
+            
             minesweeper.start();
+            
         }
         
         
-        var m = minesweeper;
+        var m = minesweeper;        // Alias for speed
+        var tile = m.getTile(t);    // The clicked tile
         
-        var tile = m.getTile(t);
         
-        if(!tile.clicked && m.status != SS.LOST){
+        if(!tile.clicked && m.status == SS.PLAYING){
+            // Only allow tiles to be clicked while the game is playing
+            
             minesweeper.tiles[tile.i].clicked = true;
             if(tile.val == -1){
+                // A mine was clicked
+                
                 m.explode(t);
+                minesweeper.lose();
+                
             }
             else if(tile.val == 0){
+                // An empty tile was clicked
+                
                 m.expand(tile);
+                
             }
             else{
+                // A tile with a number was clicked
+                
                 m.makeActive(t, tile.val);
+
             }
+            
+            // Check for a win with every click
+            minesweeper.checkWin(); 
+            
         }
 
 
@@ -230,6 +251,17 @@ var minesweeper = {
         var index = parseInt(dom.id.replace('tile-', ''), 10);
         return minesweeper.tiles[index];  
     },
+    
+    
+    /*
+     *  Get the dom node from a mine
+     */
+    getTileNode: function(tileId){
+        // TODO: take a mine from the array and get the dom node
+        return document.getElementById('tile-' + tileId.toString());
+    },
+    
+    
     
     
     /*
@@ -248,8 +280,6 @@ var minesweeper = {
         
         t.onclick = null;
         t.oncontextmenu = null;
-        
-        minesweeper.checkWin();
         
     },
     
@@ -282,9 +312,7 @@ var minesweeper = {
             // console.log(to_check.length);
         }
         
-        
         minesweeper.spreadEffect(discovered);
-        
 
     },
 
@@ -295,8 +323,8 @@ var minesweeper = {
      *  Creates the spread effect "animation"
      */
     spreadEffect: function(tiles){
-                //  The spread effect
-        // console.log(tiles);
+        //  The spread effect
+
         var spread_steps = 50; // How many steps to change the tiles
         var spread_time = 200; // Time the that spread should take in ms
         var spread_chunk = Math.floor(tiles.length/spread_steps);  // How many tiles to change at a time
@@ -363,6 +391,7 @@ var minesweeper = {
     lose: function(){
         minesweeper.timer.stop();
         minesweeper.status = SS.LOST;
+        minesweeper.revealMines();
         minesweeper.updateState();
     },
     
@@ -372,7 +401,12 @@ var minesweeper = {
      */
     revealMines: function(){
         // TODO: reveal all of the mines
-        
+        var m = minesweeper;
+        for(var i in m.mines){
+            var mine = m.mines[i];
+            var node = m.getTileNode(mine);
+            m.explode(node);
+        }
     },
     
     
@@ -390,11 +424,9 @@ var minesweeper = {
      *  Called when a mine explodes
      */
     explode: function(t){
-        // TODO: end the game with an explosion!
         console.log(t);
         t.classList.add('active');
         t.classList.add('mine');
-        minesweeper.lose();
     },
     
     
@@ -591,6 +623,10 @@ Timer.prototype.update = function(){
  *  Starts the interval
  */
 Timer.prototype.start = function(){
+    
+    if(this.interval_callback){
+        this.interval_callback(0);
+    }
     
     this.startTime = new Date();
     var that = this;
