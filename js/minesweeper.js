@@ -464,7 +464,20 @@ var minesweeper = {
      */
     updateTimer: function(timeEllapsed){
         var timer = document.getElementById('timer');
-        timer.innerHTML = Math.round(timeEllapsed/1000);
+        var seconds = timeEllapsed/1000;
+        if(seconds >= 999){
+            seconds = 999;
+        }
+        var timeString = Math.round(seconds).toString();
+        
+        if(timeString.length == 2){
+            timeString = '0' + timeString;
+        }
+        else if(timeString.length == 1){
+            timeString = '00' + timeString;
+        }
+        
+        timer.innerHTML = timeString;
         console.log(timeEllapsed);
     }
     

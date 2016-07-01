@@ -2,8 +2,6 @@
 An HTML version of Minesweeper.
 
 ## TODO
-- Set maximum counter value of 999
-- Format counter to always be 3 digits
 - Add/create digital font
 - Add game reset/restart
 - Preload images
@@ -24,3 +22,5 @@ An HTML version of Minesweeper.
 - Added timer class and function
 - Reveal all mines when player loses
 - Initialize the stats
+- Set maximum counter value of 999
+- Format counter to always be 3 digits
