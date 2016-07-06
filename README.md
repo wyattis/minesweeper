@@ -4,7 +4,7 @@ An HTML version of Minesweeper.
 ## TODO
 - Add/create digital font
 - Add game reset/restart
-- Preload images
+- Preload images/sounds
 - Add images(smileys, flag, mines)
 - Update styles
 - Add classic file menu

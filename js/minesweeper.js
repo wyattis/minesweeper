@@ -46,7 +46,7 @@ var minesweeper = {
      *  Load the game resources before the game starts
      */
     load: function(cb){
-
+        // TODO: preload images/sounds
         cb();
         
     },
@@ -126,6 +126,7 @@ var minesweeper = {
         
         // TODO: create the file menu
         var parent = document.getElementById('menu');
+        var dropDown
         
         // creates the HUD
         var parent = document.getElementById('stats');
