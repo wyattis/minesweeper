@@ -126,12 +126,12 @@ var minesweeper = {
         
         // TODO: create the file menu
         var parent = document.getElementById('menu');
-        var dropDown
-        
+
         // creates the HUD
         var parent = document.getElementById('stats');
         var div = document.createElement('div');
         div.id = 'remaining-mines';
+        div.classList.add('clock-display');
         div.innerHTML = m.remainingMines.toString();
         parent.appendChild(div);
         
@@ -141,6 +141,7 @@ var minesweeper = {
         
         div = document.createElement('div');
         div.id = 'timer';
+        div.classList.add('clock-display');
         div.innerHTML = '000';
         parent.appendChild(div);
         
