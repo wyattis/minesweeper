@@ -275,7 +275,10 @@ var minesweeper = {
         
         minesweeper.tiles[tile.i].active = true;
         
+        console.log('Tile', tile);
+        
         t.classList.toggle('active');
+        t.classList.add('t-' + tile.val.toString());
         if(text){
             t.textContent = text;  
         }

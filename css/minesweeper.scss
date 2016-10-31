@@ -7,7 +7,7 @@ html,body{
     margin: 0;
     height: 100vh;
     min-height: 800px;
-    font-family: 'Clock', arial;
+    font-family: arial;
 }
 
 $container-border: 10px;
@@ -76,6 +76,7 @@ $lightgrey-5: #949494;
     
     width: 100px;
     font-size: 40px;
+    font-family: 'Clock';
     
 }
 
@@ -144,4 +145,24 @@ $h: $tile-size - $border-size*2;
     height: $h;
     line-height: $h;
 }
-
+.t-1{
+    color: blue;
+}
+.t-2{
+    color: green;
+}
+.t-3{
+    color: red;
+}
+.t-4{
+    color: purple;
+}
+.t-5{
+    color: magenta;
+}
+.t-6{
+    color: turquoise;
+}
+.t-7{
+    color: black;
+}
