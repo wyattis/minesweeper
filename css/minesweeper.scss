@@ -95,6 +95,7 @@ $lightgrey-5: #949494;
 .tile{
     text-align: center;
     float: left;
+    font-weight: bold;
 }
 
 .popup{
@@ -110,7 +111,7 @@ $lightgrey-5: #949494;
     
     p{
         position: absolute;
-        height: 15%;
+        height: 25%;
         width: 100%;
         margin: auto;
         top: 0;
@@ -119,13 +120,100 @@ $lightgrey-5: #949494;
         right: 0;
         text-align: center;
     }
+    
+    button{
+        position: absolute;
+        bottom: 10px;
+        margin: auto;
+        left: 0;
+        right: 0;
+        width: 100px;
+    }
 }
 
 #popup.show{
     display: block;
 }
 
-@import "classic-theme";
+$border-size: 2px;
+
+.minesweeper-container:before{
+    border: $mine-container-border-before solid white;
+}
+
+.minesweeper-container:after{
+    border: $mine-container-border-after solid white;
+}
+
+.minesweeper-container{
+    border: $mine-container-border solid grey;
+}
+
+.tile{
+    border-top: $border-size solid $lightgrey-1;
+    border-left: $border-size solid $lightgrey-1;
+    border-right: $border-size solid $lightgrey-3;
+    border-bottom: $border-size solid $lightgrey-3;
+    background-color: $lightgrey-2;
+    background-size: 100% auto;
+    background-position: center;
+}
+
+.tile:hover{
+    background-color: $lightgrey-4;
+}
+
+.tile:active, .tile.active{
+    border-top: $border-size solid $lightgrey-3;
+    border-left: $border-size solid $lightgrey-3;
+    border-right: $border-size solid $lightgrey-1;
+    border-bottom: $border-size solid $lightgrey-1;
+    background-color: $lightgrey-5;
+}
+
+.tile.active.mine{
+    background-color: red;
+}
+
+.tile.marked{
+    background-image: url('../images/flag.svg');
+    // background: blue;
+}
+
+
+#smiley{
+    background-image: url('../images/alien.png');
+}
+
+#stats{
+    border-top: $mine-container-border solid grey;
+    border-left: $mine-container-border solid grey;
+    border-right: $mine-container-border solid grey;
+    
+    
+    div{
+        background-color: black;
+        color: red;
+    }
+}
+
+
+.popup{
+    background: $lightgrey-1;
+    border: 2px solid $lightgrey-5;
+}
+
+.popup.lost{
+    p{
+        color: red;
+    }
+}
+
+.popup.won{
+    p{
+        color: green;
+    }
+}
 
 .minesweeper-container{
     position: relative;

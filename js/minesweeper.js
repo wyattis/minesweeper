@@ -83,7 +83,59 @@ var minesweeper = {
     
     
     
+    /**
+     * Resets the game
+     */
+    reset: function(){
+        
+        minesweeper.status = SS.PRELOAD;
+        minesweeper.state_history = [];
+        minesweeper.mines = [];
+        minesweeper.tiles = [];
+        minesweeper.timer.stop();
+        
+        var menu = document.getElementById('menu');
+        menu.innerHTML = "";
+
+        // creates the HUD
+        var stats = document.getElementById('stats');
+        stats.innerHTML = "";
+        
+        var mines = document.getElementById('minesweeper');
+        mines.innerHTML = "";
+        
+        minesweeper.hideDialog();
+        minesweeper.initialize();
+    },
     
+    
+    /**
+     * Show the popup dialog
+     */
+    showDialog: function(html, classes) {
+
+        var popup = document.getElementById('popup');
+        popup.innerHTML = html;
+        popup.classList.add('show');
+        for (var c in classes) {
+
+            popup.classList.add(classes[c]);
+
+        }
+
+    },
+    
+    
+    /**
+     * Hide the popup dialog
+     */
+    hideDialog: function(){
+        
+       var popup = document.getElementById('popup');
+       
+       popup.classList.remove('lost', 'won', 'show');
+        
+    },
     
     /*
      *  Calculates all the values of all of the tiles
@@ -275,7 +327,7 @@ var minesweeper = {
         
         minesweeper.tiles[tile.i].active = true;
         
-        console.log('Tile', tile);
+        // console.log('Tile', tile);
         
         t.classList.toggle('active');
         t.classList.add('t-' + tile.val.toString());
@@ -375,17 +427,10 @@ var minesweeper = {
         mineDiv.textContent = minesweeper.settings.mine_count - markedCount;
         
         if(minesweeper.status == SS.WON){
-            smiley.classList.add('won');
-            popup.classList.add('show');
-            popup.classList.add('won');
-            popup.innerHTML = "<p>Congratulations!!! You're the winningest!</p>";
+
         }
         else if(minesweeper.status == SS.LOST){
-            console.log(popup);
-            smiley.classList.add('lost');
-            popup.classList.add('show');
-            popup.classList.add('lost');
-            popup.innerHTML = '<p>You Lost!!!</p>';
+
         }
     },
 
@@ -394,10 +439,17 @@ var minesweeper = {
      *  Called when the game has been lost
      */
     lose: function(){
+        var smiley = document.getElementById('smiley');
+
+        minesweeper.updateState();
         minesweeper.timer.stop();
         minesweeper.status = SS.LOST;
         minesweeper.revealMines();
         minesweeper.updateState();
+        
+        smiley.classList.add('lost');
+        
+        minesweeper.showDialog('<p>You Lost!!!</p><button onclick="minesweeper.reset()">New Game</button>', ['lost']);
     },
     
     
@@ -419,9 +471,16 @@ var minesweeper = {
      *  Called when the game has been won
      */
     win: function(){
+        var smiley = document.getElementById('smiley');
+
+        minesweeper.updateState();
         minesweeper.timer.stop();
         minesweeper.status = SS.WON;
         minesweeper.updateState();
+        
+        minesweeper.showDialog('<p>Congratulations!!! Winningest!</p><button onclick="minesweeper.reset()">New Game</button>', ['won']);
+        smiley.classList.add('won');
+
     },
 
     
@@ -429,7 +488,7 @@ var minesweeper = {
      *  Called when a mine explodes
      */
     explode: function(t){
-        console.log(t);
+        // console.log(t);
         t.classList.add('active');
         t.classList.add('mine');
     },

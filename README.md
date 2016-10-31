@@ -2,8 +2,6 @@
 An HTML version of Minesweeper.
 
 ## TODO
-- Add/create digital font
-- Add game reset/restart
 - Preload images/sounds
 - Add images(smileys, flag, mines)
 - Update styles
@@ -17,6 +15,10 @@ An HTML version of Minesweeper.
 
 
 ### Changelog
+*10/31/2016*
+- Added game reset/restart
+- Added digital font
+
 *7/1/2016*
 - Centered popup
 - Added timer class and function
