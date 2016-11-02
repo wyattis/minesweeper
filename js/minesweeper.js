@@ -329,7 +329,7 @@ var minesweeper = {
         
         // console.log('Tile', tile);
         
-        t.classList.toggle('active');
+        t.classList.add('active');
         t.classList.add('t-' + tile.val.toString());
         if(text){
             t.textContent = text;  
@@ -353,22 +353,32 @@ var minesweeper = {
         
         var tile = initial_tile;
         discovered.push(tile);
+        
+        // Grab all of the tiles next to the clicked tile
         var to_check = calculateMatrix(tile.i, s.cols, s.rows, true).map(function(i){return ts[i]});
+        
+        // Iterate until no more empty tiles are found
         while(to_check.length > 0){
             tile = to_check.shift();
-            // console.log(tile.i, to_check);
+            
+            // If the tile hasn't already been checked
             if(discovered.indexOf(tile) == -1){
+                
                 if(tile.val == 0){
+                    // If the tile is blank then grab all of the tiles around the 
+                    // blank tile
                     discovered.push(tile);
                     to_check = to_check.concat(calculateMatrix(tile.i, s.cols, s.rows, true).map(function(i){return ts[i]}));    
                 }
                 else if(tile.val > 0){
+                    // If the tile isn't blank then push it
                     discovered.push(tile);
                 }
             }
             // console.log(to_check.length);
         }
         
+        // Actually animate the spread
         minesweeper.spreadEffect(discovered);
 
     },
@@ -377,7 +387,7 @@ var minesweeper = {
     
     
     /*
-     *  Creates the spread effect "animation"
+     *  Creates the spread "animation" using setInterval
      */
     spreadEffect: function(tiles){
         //  The spread effect
@@ -425,13 +435,7 @@ var minesweeper = {
         
         var markedCount = minesweeper.tiles.filter(function(i){return i.marked;}).length;
         mineDiv.textContent = minesweeper.settings.mine_count - markedCount;
-        
-        if(minesweeper.status == SS.WON){
 
-        }
-        else if(minesweeper.status == SS.LOST){
-
-        }
     },
 
     

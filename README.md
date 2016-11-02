@@ -8,21 +8,15 @@ An HTML version of Minesweeper.
 - Add classic file menu
     - Change level sizes (beginner, medium, hard, expert)
 - Don't allow the number of mines to exceed 90%
+- ~~Add game reset/restart~~
+- ~~Add digital font~~
+- ~~Center popup~~
+- ~~Add timer class and function~~
+- ~~Reveal all mines when player loses~~
+- ~~Initialize the stats~~
+- ~~Set maximum counter value of 999~~
+- ~~Format counter to always be 3 digits~~
 
 
 ### Bugs
-- Already clicked tiles in expanded sections aren't given the active class
-
-
-### Changelog
-*10/31/2016*
-- Added game reset/restart
-- Added digital font
-
-*7/1/2016*
-- Centered popup
-- Added timer class and function
-- Reveal all mines when player loses
-- Initialize the stats
-- Set maximum counter value of 999
-- Format counter to always be 3 digits
+- ~~Already clicked tiles in expanded sections aren't given the active class~~
