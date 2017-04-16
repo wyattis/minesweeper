@@ -2,6 +2,11 @@
 An HTML version of Minesweeper.
 
 ## TODO
+- Make AI to play the game
+- Save data locally
+    - Store current game state
+    - Store game record
+    - Recover previous game state
 - Preload images/sounds
 - Add images(smileys, flag, mines)
 - Update styles

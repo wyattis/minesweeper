@@ -56,10 +56,9 @@ $lightgrey-5: #949494;
     background: lightblue;
     text-align: center;
     padding: 5px;
-    
+
     div{
         display: inline-block;
-        height: 100%;
     }
 }
 
@@ -73,11 +72,14 @@ $lightgrey-5: #949494;
 
 
 .clock-display{
-    
+
     width: 100px;
     font-size: 40px;
     font-family: 'Clock';
-    
+    background-color: black;
+    color: red;
+    height: 100%;
+
 }
 
 #remaining-mines{
@@ -86,10 +88,6 @@ $lightgrey-5: #949494;
 
 #timer{
     float: right;
-}
-
-#smiley{
-    width: 50px;
 }
 
 .tile{
@@ -108,7 +106,7 @@ $lightgrey-5: #949494;
     right: 0;
     margin: auto;
     display: none;
-    
+
     p{
         position: absolute;
         height: 25%;
@@ -120,7 +118,7 @@ $lightgrey-5: #949494;
         right: 0;
         text-align: center;
     }
-    
+
     button{
         position: absolute;
         bottom: 10px;
@@ -182,19 +180,25 @@ $border-size: 2px;
 
 
 #smiley{
-    background-image: url('../images/alien.png');
+    height: 42px;
+    width: 42px;
+    border-radius: 50%;
+    background-color: yellow;
+    background-image: url('../images/face.png');
+    background-size: 100%;
+    transition: all 1s;
+
+    &.lost{
+        background-color: red;
+        background-image: url('../images/sad-face.png');
+    }
+
 }
 
 #stats{
     border-top: $mine-container-border solid grey;
     border-left: $mine-container-border solid grey;
     border-right: $mine-container-border solid grey;
-    
-    
-    div{
-        background-color: black;
-        color: red;
-    }
 }
 
 
