@@ -1,14 +1,11 @@
 from flask import Flask, render_template
 app = Flask(__name__, static_url_path="/minesweeper/static")
 app.config['DEBUG'] = True
-app.config['APPLICATION_ROOT'] = "/minesweeper"
-# app.config['STATIC_FOLDER'] = 'static'
-# app.config['STATIC_PATH'] = root + '/static/'
 root = "/minesweeper"
+# root = ""
 
 @app.route(root + '/')
 def home():
-    print(app.config)
     return render_template('minesweeper.html')
 
 @app.route(root + '/scores', methods=['POST'])

@@ -102,7 +102,7 @@ var minesweeper = {
         stats.innerHTML = "";
 
         var mines = document.getElementById('minesweeper');
-        mines.innerHTML = "88";
+        mines.innerHTML = "";
 
         minesweeper.hideDialog();
         minesweeper.initialize();
