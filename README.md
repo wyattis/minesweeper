@@ -3,16 +3,9 @@ An HTML version of Minesweeper.
 
 ## TODO
 - Make AI to play the game
-- Save data locally
-    - Store current game state
-    - Store game record
-    - Recover previous game state
-- Preload images/sounds
-- Add images(smileys, flag, mines)
-- Update styles
-- Add classic file menu
-    - Change level sizes (beginner, medium, hard, expert)
-- Don't allow the number of mines to exceed 90%
+- Add sound effects
+- ~~Update styles~~
+- ~~Add images(smileys, flag, mines)~~
 - ~~Add game reset/restart~~
 - ~~Add digital font~~
 - ~~Center popup~~
@@ -24,4 +17,5 @@ An HTML version of Minesweeper.
 
 
 ### Bugs
+- Fix mine display (single digits are out of line)
 - ~~Already clicked tiles in expanded sections aren't given the active class~~
