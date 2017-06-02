@@ -1,5 +1,5 @@
 # Minesweeper
-An HTML version of Minesweeper.
+An HTML version of Minesweeper. Check it out [here](https://wyattis.github.io/minesweeper/).
 
 ## TODO
 - Make AI to play the game
