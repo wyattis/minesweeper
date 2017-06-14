@@ -72,4 +72,3 @@ typings/
 *.css.map
 
 # End of https://www.gitignore.io/api/node,sass,cloud9
-static
