@@ -101,12 +101,6 @@ $lightgrey-5: #949494;
     float: right;
 }
 
-.tile{
-    text-align: center;
-    float: left;
-    font-weight: bold;
-}
-
 .popup{
     position: absolute;
     height: 50%;
@@ -159,13 +153,18 @@ $border-size: 2px;
 }
 
 .tile{
-    border-top: $border-size solid $lightgrey-1;
-    border-left: $border-size solid $lightgrey-1;
-    border-right: $border-size solid $lightgrey-3;
-    border-bottom: $border-size solid $lightgrey-3;
-    background-color: $lightgrey-2;
-    background-size: 100% auto;
-    background-position: center;
+  text-align: center;
+  float: left;
+  font-weight: bold;
+  user-select: none;
+  border-top: $border-size solid $lightgrey-1;
+  border-left: $border-size solid $lightgrey-1;
+  border-right: $border-size solid $lightgrey-3;
+  border-bottom: $border-size solid $lightgrey-3;
+  background-color: $lightgrey-2;
+  background-size: 100% auto;
+  background-position: center;
+  cursor: pointer;
 }
 
 .tile:hover{
@@ -178,6 +177,7 @@ $border-size: 2px;
     border-right: $border-size solid $lightgrey-1;
     border-bottom: $border-size solid $lightgrey-1;
     background-color: $lightgrey-5;
+    cursor: default;
 }
 
 .tile.active.mine{

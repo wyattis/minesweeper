@@ -1,12 +1,11 @@
-"use strict";
-let gulp = require('gulp');
-let sass = require('gulp-sass');
-let concat = require('gulp-concat');
+const gulp = require('gulp');
+const sass = require('gulp-sass');
+const concat = require('gulp-concat');
 
 
 gulp.task('copy', function(){
     
-    gulp.src(['src/static/**/*', '!**/*.{scss,sass}'])
+    return gulp.src(['src/static/**/*', '!**/*.{scss,sass}'])
         .pipe(gulp.dest('static'));
     
 });
@@ -14,7 +13,7 @@ gulp.task('copy', function(){
 
 gulp.task('sass', function(){
     
-    gulp.src('src/static/**/*.{scss,sass}')
+    return gulp.src('src/static/**/*.{scss,sass}')
         .pipe(sass())
         .pipe(concat('minesweeper.css'))
         .pipe(gulp.dest('static/css'));
@@ -22,5 +21,5 @@ gulp.task('sass', function(){
 })
 
 
-gulp.task('build', ['copy', 'sass']);
-gulp.task('default', ['build']);
+gulp.task('build', gulp.series('copy', 'sass'));
+gulp.task('default', gulp.series('build'));
